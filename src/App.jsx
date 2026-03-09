@@ -95,7 +95,7 @@ export default function App() {
       <aside className="sidebar">
         <div className="sidebar-header">
           <div className="logo-container">
-            <img src="/form/src/assets/logo.png" alt="People Force Logo" className="header-logo-image" />
+            <span className="logo-text-people">people</span><span className="logo-text-force">force</span>
           </div>
         </div>
 

@@ -45,13 +45,20 @@ body {
 .logo-container {
     display: flex;
     align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: -0.5px;
     cursor: pointer;
     padding: 10px 0;
 }
 
-.header-logo-image {
-    max-height: 28px;
-    width: auto;
+.logo-text-people {
+    color: #00829B;
+}
+
+.logo-text-force {
+    color: #2BBC66;
 }
 
 /* exact green */
