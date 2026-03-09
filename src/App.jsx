@@ -94,9 +94,6 @@ export default function App() {
       {/* Sidebar */}
       <aside className="sidebar">
         <div className="sidebar-header">
-          <div className="logo-container">
-            <span className="logo-text-people">people</span><span className="logo-text-force">force</span>
-          </div>
         </div>
 
         <nav className="sidebar-nav">
