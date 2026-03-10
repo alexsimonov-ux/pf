@@ -28,6 +28,8 @@ const Icons = {
   Search: () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="top-search-icon"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>,
   Runner: () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: 16, height: 16 }}><circle cx="16" cy="5" r="2"></circle><path d="M12 9l-2-2-3 1"></path><path d="M12 9l2 3 4-1"></path><path d="M12 9v6l2 2"></path><path d="M11 15l-3 6"></path><path d="M14 17l1 5"></path></svg>,
   PlusMenu: () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: 16, height: 16 }}><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>,
+  XIcon: () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: 16, height: 16 }}><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>,
+  Check: () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: 16, height: 16 }}><polyline points="20 6 9 17 4 12"></polyline></svg>,
   Droplet: () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: 16, height: 16 }}><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>,
   Bell: () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: 20, height: 20 }}><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>,
   LogoIcon: () => (
@@ -77,6 +79,7 @@ const SidebarItem = ({ label, icon, hasSubmenu, isActive }) => {
 
 export default function App() {
   const [isQuickAddOpen, setIsQuickAddOpen] = useState(false);
+  const [isHireModalOpen, setIsHireModalOpen] = useState(false);
   const quickAddRef = useRef(null);
 
   useEffect(() => {
@@ -86,7 +89,18 @@ export default function App() {
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+
+    function handleKeyDown(event) {
+      if (event.key === "Escape") {
+        setIsHireModalOpen(false);
+      }
+    }
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
   }, []);
 
   return (
@@ -149,7 +163,7 @@ export default function App() {
                     Request time-off
                   </div>
                   <div className="dropdown-separator"></div>
-                  <div className="dropdown-item">
+                  <div className="dropdown-item" onClick={() => { setIsHireModalOpen(true); setIsQuickAddOpen(false); }}>
                     <span className="dropdown-item-icon"><Icons.PlusMenu /></span>
                     Hire
                   </div>
@@ -215,6 +229,42 @@ export default function App() {
           {/* Main content will go here, currently matched to empty space in the prototype */}
         </div>
       </main>
+
+      {/* Hire Modal */}
+      {isHireModalOpen && (
+        <div className="modal-backdrop" onClick={() => setIsHireModalOpen(false)}>
+          <div className="modal-container" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <h2 className="modal-title">Add a new hire to PeopleForce</h2>
+              <button className="modal-close-btn" onClick={() => setIsHireModalOpen(false)}>
+                <Icons.XIcon />
+              </button>
+            </div>
+            <div className="modal-body">
+              <div className="modal-field">
+                <label className="modal-label">Form</label>
+                <div className="modal-select-wrapper">
+                  <select className="modal-select" defaultValue="">
+                    <option value="" disabled hidden>Select</option>
+                    <option value="1">Standard Hire Form</option>
+                  </select>
+                  <div className="modal-select-icon">
+                    <Icons.ChevronDown />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="modal-footer">
+              <button className="modal-btn-cancel" onClick={() => setIsHireModalOpen(false)}>
+                <Icons.XIcon /> Cancel
+              </button>
+              <button className="modal-btn-next" onClick={() => { setIsHireModalOpen(false); }}>
+                <Icons.Check /> Next
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
