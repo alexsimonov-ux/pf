@@ -151,6 +151,7 @@ export default function App() {
                 className={`quick-add-btn ${isQuickAddOpen ? 'active' : ''}`}
                 onClick={() => setIsQuickAddOpen(!isQuickAddOpen)}
               >
+                <Icons.PlusMenu />
                 Quick add
                 <Icons.ChevronDown />
               </button>
