@@ -81,6 +81,8 @@ const SidebarItem = ({ label, icon, hasSubmenu, isActive }) => {
 export default function App() {
   const [isQuickAddOpen, setIsQuickAddOpen] = useState(false);
   const [isHireModalOpen, setIsHireModalOpen] = useState(false);
+  const [selectedForm, setSelectedForm] = useState("");
+  const [isFullScreenModalOpen, setIsFullScreenModalOpen] = useState(false);
   const quickAddRef = useRef(null);
 
   useEffect(() => {
@@ -94,6 +96,7 @@ export default function App() {
     function handleKeyDown(event) {
       if (event.key === "Escape") {
         setIsHireModalOpen(false);
+        setIsFullScreenModalOpen(false);
       }
     }
     document.addEventListener("keydown", handleKeyDown);
@@ -245,9 +248,17 @@ export default function App() {
               <div className="modal-field">
                 <label className="modal-label">Form</label>
                 <div className="modal-select-wrapper">
-                  <select className="modal-select" defaultValue="">
+                  <select
+                    className="modal-select"
+                    value={selectedForm}
+                    onChange={(e) => setSelectedForm(e.target.value)}
+                  >
                     <option value="" disabled hidden>Select</option>
-                    <option value="1">Standard Hire Form</option>
+                    <option value="standard">Standard Hire Form</option>
+                    <option value="executive">Executive Hire Form</option>
+                    <option value="contractor">Contractor Hire Form</option>
+                    <option value="internship">Internship Hire Form</option>
+                    <option value="referral">Referral Hire Form</option>
                   </select>
                   <div className="modal-select-icon">
                     <Icons.ChevronDown />
@@ -259,10 +270,101 @@ export default function App() {
               <button className="modal-btn-cancel" onClick={() => setIsHireModalOpen(false)}>
                 <Icons.XIcon /> Cancel
               </button>
-              <button className="modal-btn-next" onClick={() => { setIsHireModalOpen(false); }}>
+              <button
+                className={`modal-btn-next ${!selectedForm ? 'disabled' : ''}`}
+                onClick={() => {
+                  if (selectedForm) {
+                    setIsHireModalOpen(false);
+                    setIsFullScreenModalOpen(true);
+                  }
+                }}
+                disabled={!selectedForm}
+              >
                 <Icons.Check /> Next
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Full-screen Hire Modal */}
+      {isFullScreenModalOpen && (
+        <div className="full-screen-modal-overlay">
+          <div className="full-screen-modal-container">
+            <header className="fs-modal-header">
+              <div className="fs-header-left">
+                <h2 className="fs-modal-title">
+                  {selectedForm === 'standard' && "Standard Hire Form"}
+                  {selectedForm === 'executive' && "Executive Hire Form"}
+                  {selectedForm === 'contractor' && "Contractor Hire Form"}
+                  {selectedForm === 'internship' && "Internship Hire Form"}
+                  {selectedForm === 'referral' && "Referral Hire Form"}
+                </h2>
+                <div className="save-status">
+                  <Icons.Check />
+                  <span>Saved</span>
+                </div>
+              </div>
+              <button className="fs-modal-close" onClick={() => setIsFullScreenModalOpen(false)}>
+                <Icons.XIcon />
+              </button>
+            </header>
+
+            <div className="fs-modal-content">
+              <aside className="fs-sidebar">
+                <div className="fs-sidebar-item active">
+                  <span className="fs-sidebar-dot"></span>
+                  Personal information
+                </div>
+                <div className="fs-sidebar-item">
+                  <span className="fs-sidebar-dot"></span>
+                  Job
+                </div>
+                <div className="fs-sidebar-item">
+                  <span className="fs-sidebar-dot"></span>
+                  Compensation
+                </div>
+              </aside>
+
+              <main className="fs-main-form">
+                <div className="fs-form-section">
+                  <h3 className="fs-section-title">Personal information</h3>
+                  <div className="fs-form-grid">
+                    <div className="fs-field">
+                      <label>First name</label>
+                      <input type="text" placeholder="First name" />
+                    </div>
+                    <div className="fs-field">
+                      <label>Last name</label>
+                      <input type="text" placeholder="Last name" />
+                    </div>
+                    <div className="fs-field">
+                      <label>Middle name</label>
+                      <input type="text" placeholder="Middle name" />
+                    </div>
+                    <div className="fs-field">
+                      <label>Email</label>
+                      <input type="email" placeholder="Email" />
+                    </div>
+                    <div className="fs-field">
+                      <label>Personal email</label>
+                      <input type="email" placeholder="Personal email" />
+                    </div>
+                    <div className="fs-field">
+                      <label>Birth date</label>
+                      <input type="date" />
+                    </div>
+                  </div>
+                </div>
+              </main>
+            </div>
+
+            <footer className="fs-modal-footer">
+              <div className="fs-footer-right">
+                <button className="fs-btn-cancel" onClick={() => setIsFullScreenModalOpen(false)}>Cancel</button>
+                <button className="fs-btn-save">Save</button>
+              </div>
+            </footer>
           </div>
         </div>
       )}

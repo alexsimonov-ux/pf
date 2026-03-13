@@ -596,3 +596,234 @@ body {
     background-color: #1D4ED8;
     border-color: #1D4ED8;
 }
+
+.modal-btn-next.disabled {
+    background-color: #E2E8F0;
+    border-color: #E2E8F0;
+    color: #94A3B8;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* Full-screen Modal */
+.full-screen-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #FFFFFF;
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    animation: slideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.full-screen-modal-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.fs-modal-header {
+    height: 64px;
+    padding: 0 40px;
+    border-bottom: 1px solid #E2E8F0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.fs-header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.fs-modal-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #0F172A;
+}
+
+.save-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #64748B;
+    font-size: 13px;
+}
+
+.save-status svg {
+    width: 14px;
+    height: 14px;
+    color: #2BBC66;
+}
+
+.fs-modal-close {
+    background: none;
+    border: none;
+    color: #64748B;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.fs-modal-close:hover {
+    background-color: #F1F5F9;
+    color: #0F172A;
+}
+
+.fs-modal-content {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+}
+
+.fs-sidebar {
+    width: 280px;
+    padding: 40px;
+    border-right: 1px solid #E2E8F0;
+    background-color: #F8FAFC;
+}
+
+.fs-sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: #64748B;
+    cursor: pointer;
+}
+
+.fs-sidebar-item.active {
+    color: #00829B;
+    font-weight: 600;
+}
+
+.fs-sidebar-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #CBD5E1;
+}
+
+.fs-sidebar-item.active .fs-sidebar-dot {
+    background-color: #00829B;
+    box-shadow: 0 0 0 4px rgba(0, 130, 155, 0.1);
+}
+
+.fs-main-form {
+    flex: 1;
+    padding: 40px 60px;
+    overflow-y: auto;
+}
+
+.fs-form-section {
+    max-width: 800px;
+}
+
+.fs-section-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #0F172A;
+    margin-bottom: 32px;
+}
+
+.fs-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px 32px;
+}
+
+.fs-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.fs-field label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #475569;
+}
+
+.fs-field input {
+    height: 40px;
+    padding: 0 12px;
+    border: 1px solid #CBD5E1;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #0F172A;
+    transition: all 0.2s;
+}
+
+.fs-field input:focus {
+    outline: none;
+    border-color: #00829B;
+    box-shadow: 0 0 0 3px rgba(0, 130, 155, 0.1);
+}
+
+.fs-modal-footer {
+    height: 80px;
+    padding: 0 40px;
+    border-top: 1px solid #E2E8F0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.fs-footer-right {
+    display: flex;
+    gap: 12px;
+}
+
+.fs-btn-cancel {
+    padding: 10px 24px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    background: transparent;
+    border: 1px solid #CBD5E1;
+    color: #475569;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.fs-btn-cancel:hover {
+    background: #F1F5F9;
+    color: #0F172A;
+}
+
+.fs-btn-save {
+    padding: 10px 32px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    background: #00829B;
+    border: 1px solid #00829B;
+    color: #FFFFFF;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.fs-btn-save:hover {
+    background: #006D82;
+}
